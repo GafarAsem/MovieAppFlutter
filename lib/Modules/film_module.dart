@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 enum TypeFilm { Movie, TvShow, Anime }
 
- class Film {
+abstract class Film {
   final String title,
       story,
       language,
@@ -14,10 +14,10 @@ enum TypeFilm { Movie, TvShow, Anime }
   final double rating;
   final List<String> sortFilm;
   bool favorite;
-  final typeFilm;
+  final TypeFilm typeFilm;
 
-  Film({
-      this.title,
+  Film(
+      {this.title,
       this.story,
       this.language,
       this.country,
@@ -28,12 +28,12 @@ enum TypeFilm { Movie, TvShow, Anime }
       this.rating,
       this.sortFilm,
       this.typeFilm,
-      this.favorite = false
-      });
+      this.favorite = false});
 
   get getTitle {
     return title;
   }
+
   get getStory {
     return story;
   }

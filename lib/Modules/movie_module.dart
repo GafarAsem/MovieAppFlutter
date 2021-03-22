@@ -1,8 +1,8 @@
 import 'package:movie_app_flutter/Modules/film_module.dart';
 
 class Movie extends Film {
-  Movie({
-      String title,
+  Movie(
+      {String title,
       String story,
       String language,
       String country,
@@ -12,8 +12,7 @@ class Movie extends Film {
       String postURL,
       double rating,
       List<String> sortFilm,
-      typeFilm,
-      bool favorite=false})
+      bool favorite = false})
       : super(
             title: title,
             story: story,
@@ -25,6 +24,6 @@ class Movie extends Film {
             postURL: postURL,
             rating: rating,
             sortFilm: sortFilm,
-            typeFilm: typeFilm,
+            typeFilm: TypeFilm.Movie,
             favorite: favorite);
 }
