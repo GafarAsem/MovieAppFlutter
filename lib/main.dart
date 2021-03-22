@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:movie_app_flutter/Modules/film_module.dart';
 import 'package:movie_app_flutter/Modules/movie_module.dart';
+import 'package:movie_app_flutter/WebService/tmdb_service.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 Future<void> main() async {
@@ -22,6 +23,8 @@ Future<void> main() async {
   // print(result);
   // var result=await rootBundle.loadString('tv_geners');
   // print(result);
+  // print(await TmdbService.getList(10759));
+
 }
 
 class MyApp extends StatelessWidget {
