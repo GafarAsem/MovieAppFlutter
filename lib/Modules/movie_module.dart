@@ -1,17 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:movie_app_flutter/Modules/film_module.dart';
 
 class Movie extends Film {
   Movie(
-      {String title,
-      String story,
-      String language,
-      String country,
-      String hourWatch,
-      String director,
-      String date,
-      String postURL,
-      double rating,
-      List<String> sortFilm,
+      {@required String title,
+      @required String story,
+      @required String language,
+      @required String country,
+      @required String hourWatch,
+      @required String director,
+      @required String date,
+      @required String postURL,
+      @required double rating,
+      @required List<String> sortFilm,
       bool favorite = false})
       : super(
             title: title,

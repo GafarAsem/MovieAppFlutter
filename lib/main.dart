@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:movie_app_flutter/Modules/film_module.dart';
 import 'package:movie_app_flutter/Modules/movie_module.dart';
 import 'package:tmdb_api/tmdb_api.dart';
@@ -11,11 +12,15 @@ Future<void> main() async {
   // TMDB tmdb = TMDB(
   //   ApiKeys('fe659aba8645a08bd849aad616d8fe6e', 'apiReadAccessTokenv4'),
   //   logConfig: ConfigLogger(
-  //     showLogs: true,//must be true than only all other logs will be shown
+  //     showLogs: true, //must be true than only all other logs will be shown
   //     showErrorLogs: true,
   //   ),
   // );
-  // Map result = await tmdb.v3;
+  // Map result = await tmdb.v3.search.queryMovies('inception');
+  //  result['results'][0].forEach((e,value)=>print(e.toString()+":"+value.toString()));
+  // Map result = await tmdb.v3.geners.getTvlist();
+  // print(result);
+  // var result=await rootBundle.loadString('tv_geners');
   // print(result);
 }
 

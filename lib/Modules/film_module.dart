@@ -1,4 +1,5 @@
-import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 
 enum TypeFilm { Movie, TvShow, Anime }
 
@@ -17,17 +18,17 @@ abstract class Film {
   final TypeFilm typeFilm;
 
   Film(
-      {this.title,
-      this.story,
-      this.language,
-      this.country,
-      this.hourWatch,
-      this.director,
-      this.date,
-      this.postURL,
-      this.rating,
-      this.sortFilm,
-      this.typeFilm,
+      {@required this.title,
+      @required this.story,
+      @required this.language,
+      @required this.country,
+      @required this.hourWatch,
+      @required this.director,
+      @required this.date,
+      @required this.postURL,
+      @required this.rating,
+      @required this.sortFilm,
+      @required this.typeFilm,
       this.favorite = false});
 
   get getTitle {

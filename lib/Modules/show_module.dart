@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:movie_app_flutter/Modules/film_module.dart';
 
 class Show extends Film {
@@ -5,19 +6,20 @@ class Show extends Film {
   bool end;
 
   Show({
-    String title,
-    String story,
-    String language,
-    String country,
-    String hourWatch,
-    String director,
-    String date,
-    String postURL,
-    double rating,
-    List<String> sortFilm,
-    this.session,
-    this.episode,
+    @required String title,
+    @required String story,
+    @required String language,
+    @required String country,
+    @required String hourWatch,
+    @required String director,
+    @required String date,
+    @required String postURL,
+    @required double rating,
+    @required List<String> sortFilm,
+    @required this.session,
+    @required this.episode,
     this.end = true,
+    TypeFilm typeFilm = TypeFilm.TvShow,
     bool favorite = false,
   }) : super(
             title: title,
@@ -30,7 +32,7 @@ class Show extends Film {
             postURL: postURL,
             rating: rating,
             sortFilm: sortFilm,
-            typeFilm: TypeFilm.TvShow,
+            typeFilm: typeFilm,
             favorite: favorite);
 
   int get getSession {
