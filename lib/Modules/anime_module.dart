@@ -1,10 +1,8 @@
 import 'package:movie_app_flutter/Modules/film_module.dart';
+import 'package:movie_app_flutter/Modules/show_module.dart';
 
-class Show extends Film {
-  final int session, episode;
-  bool end;
-
-  Show({
+class Anime extends Show {
+  Anime({
     String title,
     String story,
     String language,
@@ -15,9 +13,9 @@ class Show extends Film {
     String postURL,
     double rating,
     List<String> sortFilm,
-    this.session,
-    this.episode,
-    this.end = true,
+    int session,
+    int episode,
+    bool end = true,
     bool favorite = false,
   }) : super(
             title: title,
@@ -30,18 +28,8 @@ class Show extends Film {
             postURL: postURL,
             rating: rating,
             sortFilm: sortFilm,
-            typeFilm: TypeFilm.TvShow,
-            favorite: favorite);
-
-  int get getSession {
-    return session;
-  }
-
-  int get getEpisodeNumper {
-    return episode;
-  }
-
-  bool get isEnd {
-    return end;
-  }
+            favorite: favorite,
+            session: session,
+            episode: episode,
+            end: end);
 }
