@@ -23,7 +23,14 @@ class TmdbService {
     var movies = await _tmdb.v3.discover.getMovies();
     return movies;
   }
-
+  static Future<Map> getMovieDetails(int movieId) async {
+    var movie = await _tmdb.v3.movies.getDetails(movieId);
+    return movie;
+  }
+  static Future<Map> getShowDetails(int showId) async {
+    var movie = await _tmdb.v3.tv.getDetails(showId);
+    return movie;
+  }
   static Future<Map> getDiscoverShows() async {
     var shows = await _tmdb.v3.discover.getTvShows();
     return shows;

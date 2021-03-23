@@ -6,22 +6,24 @@ class Show extends Film {
   bool end;
 
   Show({
+    @required int id,
     @required String title,
     @required String story,
     @required String language,
     @required String country,
     @required String hourWatch,
     @required String director,
-    @required String date,
+    @required DateTime date,
     @required String postURL,
     @required double rating,
-    @required List<String> sortFilm,
+    @required List<dynamic> sortFilm,
     @required this.session,
     @required this.episode,
     this.end = true,
     TypeFilm typeFilm = TypeFilm.TvShow,
     bool favorite = false,
   }) : super(
+            id: id,
             title: title,
             story: story,
             language: language,
