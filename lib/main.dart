@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app_flutter/Scenes/onbording.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
 
 Future<void> main() async {
@@ -15,9 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Container(
-        color: ColorMovie.white_green,
-      ),
+      home: OnBordingPage(),
     );
   }
 }
