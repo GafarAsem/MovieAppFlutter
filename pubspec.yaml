@@ -21,9 +21,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  shared_preferences: ^2.0.5
   introduction_screen: ^2.0.0
   tmdb_api: ^1.2.5
   intl: ^0.17.0
+  google_nav_bar: ^5.0.3
+  line_awesome_icons: ^1.0.4+2
   flutter:
     sdk: flutter
 
