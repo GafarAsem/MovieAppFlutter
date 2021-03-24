@@ -6,7 +6,6 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorMovie.blue_white,
       child:  Center(
         child: CircularProgressIndicator(
         backgroundColor: ColorMovie.white_green,

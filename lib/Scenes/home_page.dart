@@ -1,8 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:movie_app_flutter/Modules/film_module.dart';
+import 'package:movie_app_flutter/Scenes/NavigationPage/anime_scene.dart';
+import 'package:movie_app_flutter/Scenes/NavigationPage/favorite_scene.dart';
+import 'package:movie_app_flutter/Scenes/NavigationPage/movie_scene.dart';
+import 'package:movie_app_flutter/Scenes/NavigationPage/shows_scene.dart';
 import 'package:movie_app_flutter/UI/Border.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
+import 'package:movie_app_flutter/UI/text_style.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,14 +18,58 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selected = 0;
+  PageController _controllPages = PageController();
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 20,
+        title: Text(
+          'Movies',
+          style: MyTextStyle.getMyStyle(
+              color: ColorMovie.blue_dark, font: 30, fontWeight: FontWeight.w400),
+        ),
+        actions: [
+          Icon(
+            CupertinoIcons.search,
+            color: ColorMovie.blue_dark,
+            size: 35,
+          ),
+        ],
+        backgroundColor: Colors.white,
+        elevation: 0,
+      ),
       backgroundColor: Colors.white,
-      body: CustomScrollView(),
+      body: PageView.builder(
+        controller: _controllPages,
+        onPageChanged: (position) {
+          setState(() {
+            _selected = position;
+          });
+        },
+        itemBuilder: (context, position) {
+          var _page;
+          switch (position) {
+            case 0:
+              _page = MoviePage();
+              break;
+            case 1:
+              _page = ShowPage();
+              break;
+            case 2:
+              _page = AnimePage();
+              break;
+            case 3:
+              _page = FavoritePage();
+              break;
+          }
+          return _page;
+        },
+        itemCount: 4, // Can be null
+      ),
       bottomNavigationBar: GNav(
         activeColor: ColorMovie.blue_dark,
         color: ColorMovie.green_light,
@@ -48,6 +99,7 @@ class _HomePageState extends State<HomePage> {
         onTabChange: (index) {
           setState(() {
             _selected = index;
+            _controllPages.jumpToPage(_selected);
           });
         },
       ),
