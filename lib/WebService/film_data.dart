@@ -40,7 +40,7 @@ class FilmData {
               director: null,
               date: DateTime.tryParse(movieDetaile['release_date']),
               postURL: movieDetaile['poster_path'],
-              rating: movieDetaile['vote_average'],
+              rating: movieDetaile['vote_average'].runtimeType==int?movieDetaile['vote_average'].toDouble(): movieDetaile['vote_average'],
               sortFilm: movieDetaile['genre_ids']));
         }
         break;

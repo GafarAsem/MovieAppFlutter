@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:tmdb_api/tmdb_api.dart';
 
@@ -13,6 +12,7 @@ class TmdbService {
         await _tmdb.v3.trending.getTrending(mediaType: MediaType.movie);
     return movies;
   }
+
 
   static Future<Map> getTrendingShows() async {
     var shows = await _tmdb.v3.trending.getTrending(mediaType: MediaType.tv);
@@ -51,6 +51,11 @@ class TmdbService {
         'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZTY1OWFiYTg2NDVhMDhiZDg0OWFhZDYxNmQ4ZmU2ZSIsInN1YiI6IjYwNTg1MjgwMDFlNGQxMDA1MzY0ODkxYiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.48WtIrSejqybBU0aqEaQGg2XuWJeWTYhPb6-zQBI67o';
     var List = await _tmdb.v4.lists.getList(_apiTokenV4, idList);
     return List;
+  }
+
+  static Future<Map> getNewsMovies() async {
+    var movies = await _tmdb.v3.movies.getUpcoming();
+    return movies;
   }
 
 }

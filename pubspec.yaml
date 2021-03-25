@@ -27,6 +27,7 @@ dependencies:
   intl: ^0.17.0
   google_nav_bar: ^5.0.3
   line_awesome_icons: ^1.0.4+2
+  scroll_snap_list: ^0.7.0
   flutter:
     sdk: flutter
 
