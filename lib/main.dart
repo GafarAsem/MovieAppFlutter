@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:movie_app_flutter/Scenes/home_page.dart';
 import 'package:movie_app_flutter/Scenes/onbording.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
@@ -6,12 +9,15 @@ import 'package:movie_app_flutter/WebService/film_data.dart';
 import 'package:movie_app_flutter/WebService/tmdb_service.dart';
 import 'package:movie_app_flutter/Widget/loading_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tmdb_api/tmdb_api.dart';
 
 Future<void> main() async {
   runApp(MyApp());
-  // var d=await TmdbService.getDiscoverMovies();
-  // print(d);
-  // var result=FilmData.getMovies(d, TypeMovie.discovering);
+
+
+
+
+
 
 }
 

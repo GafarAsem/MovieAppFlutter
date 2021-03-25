@@ -6,7 +6,7 @@ class TypeHomeFilm{
    String title;
    TypeFilm typeFilm;
    var respone;
-   TypeMovie typeMovie;
+   dynamic typeMovie;
    List films;
 
   TypeHomeFilm({this.title, this.typeFilm, this.respone, this.typeMovie});
