@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:movie_app_flutter/Scenes/home_page.dart';
 import 'package:movie_app_flutter/UI/Border.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
 import 'package:movie_app_flutter/UI/text_style.dart';
@@ -42,7 +43,9 @@ class OnBorderingPage extends StatelessWidget {
                           shape: BorderCirculer.shapeStyle(15)),
                       onPressed: () {
                         setShared();
-                        // Navigator.pop(HomePage());
+                        Navigator.pop(context);
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+
                       },
                       child: Text(
                         'Get Started',

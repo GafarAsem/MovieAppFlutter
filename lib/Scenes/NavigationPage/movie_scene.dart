@@ -25,15 +25,10 @@ class _MoviePageState extends State<MoviePage> {
   var futurJson;
   List<TypeHomeFilm> _list = [
     TypeHomeFilm(
-        title: 'Trending',
-        respone: TmdbService.getTrendingMovies(),
+        title: 'Up Coming 2021',
+        respone: TmdbService.getUpComingMovies(),
         typeFilm: TypeFilm.Movie,
         typeMovie: TypeMovie.trending),
-    TypeHomeFilm(
-        title: 'Top Action',
-        respone: TmdbService.tmdb.v3.discover.getMovies(withGenres: '28'),
-        typeFilm: TypeFilm.Movie,
-        typeMovie: TypeMovie.discovering),
   ];
 
   @override

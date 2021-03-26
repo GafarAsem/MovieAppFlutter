@@ -57,6 +57,7 @@ class TmdbService {
     var movies = await tmdb.v3.movies.getUpcoming();
     return movies;
   }
+
   static Future<Map> getTopRatedMovies() async {
     var movies = await tmdb.v3.movies.getTopRated();
     return movies;
