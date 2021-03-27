@@ -26,7 +26,7 @@ class _MoviePageState extends State<MoviePage> {
   List<TypeHomeFilm> _list = [
     TypeHomeFilm(
         title: 'Up Coming 2021',
-        respone: TmdbService.getUpComingMovies(),
+        respone: TmdbService.getUpComingMovies(1),
         typeFilm: TypeFilm.Movie,
         typeMovie: TypeMovie.trending),
   ];

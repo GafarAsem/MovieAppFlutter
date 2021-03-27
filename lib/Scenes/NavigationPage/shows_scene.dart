@@ -21,7 +21,7 @@ class _ShowPageState extends State<ShowPage> {
   List<TypeHomeFilm> _list = [
     TypeHomeFilm(
         title: 'Top Rated',
-        respone: TmdbService.getTopRatedShow(),
+        respone: TmdbService.getTopRatedShow(1),
         typeFilm: TypeFilm.TvShow,
         typeMovie: TypeShow.trending),
   ];
