@@ -19,14 +19,13 @@ class OnBorderingPage extends StatelessWidget {
               decoration: new BoxDecoration(
                   color: ColorMovie.blue_white.withOpacity(0.3)),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   //icon app
                   Padding(
                     padding: EdgeInsets.only(
                       right: width / 7,
                       left: width / 7,
-                      top: height / 15,
-                      bottom: height / 3,
                     ),
                     child: Image(
                       image: AssetImage('images/ic_launcher_foreground.png'),
@@ -61,7 +60,7 @@ class OnBorderingPage extends StatelessWidget {
           //image background
           decoration: BoxDecoration(
               image: DecorationImage(
-            image: AssetImage('images/background.png'),
+            image: AssetImage(width<height?'images/background.png':'images/background_desktop.png'),
             fit: BoxFit.cover,
           ))),
     );
