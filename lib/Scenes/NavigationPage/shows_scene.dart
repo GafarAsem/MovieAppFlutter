@@ -8,6 +8,7 @@ import 'package:movie_app_flutter/Scenes/page_sample.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
 import 'package:movie_app_flutter/WebService/film_data.dart';
 import 'package:movie_app_flutter/WebService/tmdb_service.dart';
+import 'package:movie_app_flutter/WebService/web_service.dart';
 import 'package:movie_app_flutter/Widget/loading_widget.dart';
 
 class ShowPage extends StatefulWidget {
@@ -21,11 +22,11 @@ class _ShowPageState extends State<ShowPage> {
   List<TypeHomeFilm> _list = [
     TypeHomeFilm(
         title: 'Top Rated',
-        respone: TmdbService.getTopRatedShow(1),
+        respone: WebService.getTopRatedShow(1),
         typeFilm: TypeFilm.TvShow,
         typeMovie: TypeShow.trending),
   ];
-@override
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -57,8 +58,8 @@ class _ShowPageState extends State<ShowPage> {
 
   getTypeHomeModel(title, generId) {
     return TypeHomeFilm(
-        title: 'Top $title',
-        respone: TmdbService.tmdb.v3.discover.getTvShows(withGeners: generId),
+        title: '$title',
+        respone: WebService.getShows(withGenres: generId),
         typeFilm: TypeFilm.TvShow,
         typeMovie: TypeShow.trending);
   }

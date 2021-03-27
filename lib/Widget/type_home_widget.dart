@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:bordered_text/bordered_text.dart';
@@ -34,18 +35,22 @@ class _TypeHomeWidgetState extends State<TypeHomeWidget> {
             FutureBuilder(
                 future: _typeHomeFilm.respone,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
+
                   if (snapshot.hasData) {
+                    var data=jsonDecode(snapshot.data[0]);
+                    print(data.runtimeType);
                     if (_typeHomeFilm.typeFilm == TypeFilm.Movie) {
                       if (_typeHomeFilm.typeMovie == TypeMovie.list)
                         _typeHomeFilm.films = FilmData.getMovies(
-                            snapshot.data['items'], _typeHomeFilm.typeMovie);
+                            data['items'], _typeHomeFilm.typeMovie);
                       else
                         _typeHomeFilm.films = FilmData.getMovies(
-                            snapshot.data, _typeHomeFilm.typeMovie);
+                            data, _typeHomeFilm.typeMovie);
                     } else {
                       _typeHomeFilm.films = FilmData.getShows(
-                          snapshot.data, _typeHomeFilm.typeMovie);
+                          data, _typeHomeFilm.typeMovie);
                     }
+                    print('here');
                     return ListView.builder(
                         physics: BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),

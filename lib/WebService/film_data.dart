@@ -17,7 +17,7 @@ class FilmData {
         for (int i = 0; i < responeResult['results'].length; i++) {
           var movieDetaile = responeResult['results'][i];
           movies.add(Movie(
-              id: movieDetaile['id'],
+              id: movieDetaile['id'].runtimeType==int?movieDetaile['id']:int.parse(movieDetaile['id']),
               title: movieDetaile['title'],
               story: movieDetaile['overview'],
               language: movieDetaile['original_language'],
@@ -36,7 +36,7 @@ class FilmData {
         for (int i = 0; i < responeResult['results'].length; i++) {
           var movieDetaile = responeResult['results'][i];
           movies.add(Movie(
-              id: movieDetaile['id'],
+              id: movieDetaile['id'].runtimeType==int?movieDetaile['id']:int.parse(movieDetaile['id']),
               title: movieDetaile['title'],
               story: movieDetaile['overview'],
               language: movieDetaile['original_language'],
@@ -55,7 +55,7 @@ class FilmData {
       case TypeMovie.details:
         List ss = [];
         movies.add(Movie(
-            id: responeResult['id'],
+            id: responeResult['id'].runtimeType==int?responeResult['id']:int.parse(responeResult['id']),
             title: responeResult['title'],
             story: responeResult['overview'],
             language: responeResult['original_language'],

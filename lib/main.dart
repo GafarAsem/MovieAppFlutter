@@ -10,13 +10,10 @@ import 'package:movie_app_flutter/WebService/tmdb_service.dart';
 import 'package:movie_app_flutter/Widget/loading_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tmdb_api/tmdb_api.dart';
+import 'package:http/http.dart' as http;
 
 Future<void> main() async {
   runApp(MyApp());
-
-
-
-
 
 
 }
