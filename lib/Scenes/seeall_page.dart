@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:ui';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:movie_app_flutter/Modules/film_module.dart';
 import 'package:movie_app_flutter/Modules/type_home_film.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
 import 'package:movie_app_flutter/UI/text_style.dart';
@@ -15,14 +17,23 @@ class SeeAllPage extends StatefulWidget {
   SeeAllPage(this.typeHomeFilm);
 
   @override
-  _SeeAllPageState createState() => _SeeAllPageState();
+  _SeeAllPageState createState() => _SeeAllPageState(typeHomeFilm);
 }
 
 class _SeeAllPageState extends State<SeeAllPage> {
-  var respone = TmdbService.getUpComingMovies(1);
+  TypeHomeFilm typeHomeFilm;
+
+  _SeeAllPageState(this.typeHomeFilm);
+
 
   @override
   Widget build(BuildContext context) {
+    print(typeHomeFilm.uri);
+    var respone = http.get(Uri.https(
+      typeHomeFilm.uri.authority,
+      typeHomeFilm.uri.path,
+      typeHomeFilm.uri.queryParameters
+    ));
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -45,16 +56,26 @@ class _SeeAllPageState extends State<SeeAllPage> {
               ),
             ),
             Container(
-                height: MediaQuery.of(context).size.height - 150,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height - 150,
                 child: FutureBuilder(
                   future: respone,
                   builder:
                       (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.hasData) {
-                      var _typeHomeFilm = TypeHomeFilm(respone: snapshot.data);
+                      var data=jsonDecode(snapshot.data.body);
+                      var _typeHomeFilm = TypeHomeFilm(respone: data,typeMovie: typeHomeFilm.typeMovie,typeFilm: typeHomeFilm.typeFilm);
+
+                      if(_typeHomeFilm.typeFilm==TypeFilm.Movie)
                       _typeHomeFilm.films = FilmData.getMovies(
-                          _typeHomeFilm.respone, widget.typeHomeFilm.typeMovie);
-                      return GridViewPage(_typeHomeFilm);
+                          _typeHomeFilm.respone, typeHomeFilm.typeMovie);
+                      else _typeHomeFilm.films=FilmData.getShows(_typeHomeFilm.respone, typeHomeFilm.typeMovie);
+
+
+
+                      return GridViewPage(typeHomeFilm);
                     } else {
                       return LoadingWidget();
                     }
@@ -78,6 +99,7 @@ class GridViewPage extends StatefulWidget {
 
 class _GridViewPageState extends State<GridViewPage> {
   TypeHomeFilm typeHomeFilm;
+  int _page = 2;
 
   _GridViewPageState(this.typeHomeFilm);
 
@@ -87,20 +109,33 @@ class _GridViewPageState extends State<GridViewPage> {
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       shrinkWrap: true,
       gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,
-          mainAxisExtent: 250*1.5),
+      SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,
+          mainAxisExtent: 250 * 1.5),
       itemBuilder: (context, index) {
         if (index >= typeHomeFilm.films.length - 1) {
-          var respone = TmdbService.getUpComingMovies(2);
+          Map ss=jsonDecode(jsonEncode(typeHomeFilm.uri.queryParameters));
+          ss.update('page', (value) => (_page).round().toString());
+          _page++;
+          var respone = http.get(Uri.https(
+              typeHomeFilm.uri.authority,
+              typeHomeFilm.uri.path,
+              ss
+          ));
           return FutureBuilder(
             future: respone,
             builder: (BuildContext context,
-                AsyncSnapshot<Map<dynamic, dynamic>> snapshot) {
+                AsyncSnapshot snapshot) {
+
               if (snapshot.hasData) {
-                typeHomeFilm.films.addAll(
-                    FilmData.getMovies(snapshot.data, TypeMovie.trending));
-                print(FilmData.getMovies(snapshot.data, TypeMovie.discovering)
-                    .length);
+                var data=jsonDecode(snapshot.data.body);
+
+
+                if(typeHomeFilm.typeFilm==TypeFilm.Movie)
+                  typeHomeFilm.films.addAll(
+                      FilmData.getMovies(data, typeHomeFilm.typeMovie));
+                else  typeHomeFilm.films.addAll(
+                    FilmData.getShows(data, typeHomeFilm.typeMovie));
+
                 print(typeHomeFilm.films.length);
                 return GridCardMovie(typeHomeFilm.films[index]);
               } else {
@@ -130,7 +165,7 @@ class GridCardMovie extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: 250*1.5,
+        height: 250 * 1.5,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -150,7 +185,7 @@ class GridCardMovie extends StatelessWidget {
                         image: NetworkImage('https://image.tmdb.org/t/p/w300' +
                             film.getPostImageUrl),
                         fit: BoxFit.cover)),
-                width: 130*1.5,
+                width: 130 * 1.5,
                 height: 300,
               ),
               Container(

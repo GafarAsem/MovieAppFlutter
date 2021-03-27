@@ -38,6 +38,7 @@ class _TypeHomeWidgetState extends State<TypeHomeWidget> {
 
                   if (snapshot.hasData) {
                     var data=jsonDecode(snapshot.data[0]);
+                    _typeHomeFilm.uri=snapshot.data[1];
                     print(data.runtimeType);
                     if (_typeHomeFilm.typeFilm == TypeFilm.Movie) {
                       if (_typeHomeFilm.typeMovie == TypeMovie.list)
@@ -103,40 +104,49 @@ class _TypeHomeWidgetState extends State<TypeHomeWidget> {
   }
 
   Widget cardEndFilms(context) {
-    return Center(
-      child: Padding(
-          padding: const EdgeInsets.only(right: 5, left: 5, top: 35),
-          child: Container(
-            height: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: ColorMovie.blue_dark.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 9,
-                        offset: Offset(0, 10), // changes position of shadow
-                      ),
-                    ],
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: ColorMovie.blue_white,
+    return GestureDetector(
+      onTapUp: (_) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SeeAllPage(_typeHomeFilm)));
+      },
+      child: Center(
+        child: Padding(
+            padding: const EdgeInsets.only(right: 5, left: 5, top: 35),
+            child: Container(
+              height: 200,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: ColorMovie.blue_dark.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 9,
+                          offset: Offset(0, 10), // changes position of shadow
+                        ),
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: ColorMovie.blue_white,
+                    ),
+                    child: Center(
+                        child: Text(
+                      'More',
+                      style:
+                          MyTextStyle.getMyStyle(color: Colors.white, font: 30),
+                    )),
+                    width: 100,
+                    height: 170,
                   ),
-                  child: Center(
-                      child: Text(
-                    'More',
-                    style:
-                        MyTextStyle.getMyStyle(color: Colors.white, font: 30),
-                  )),
-                  width: 100,
-                  height: 170,
-                ),
-                Text(''),
-              ],
-            ),
-          )),
+                  Text(''),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

@@ -141,6 +141,9 @@ class WebService{
           'page':pages.toString()
         }
     );
+    uri.authority;
+    uri.path;
+    uri.queryParameters;
     var shows =
     await http.get(uri);
     return [shows.body,uri];
