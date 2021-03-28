@@ -51,6 +51,7 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 typeHomeFilm.uri.queryParameters
             )
             );
+            typeHomeFilm.title='search';
             return scaffold(respone);
           }
           else{
@@ -97,7 +98,8 @@ class _SeeAllPageState extends State<SeeAllPage> {
                       var data = jsonDecode(snapshot.data.body);
                       var _typeHomeFilm = TypeHomeFilm(respone: data,
                           typeMovie: typeHomeFilm.typeMovie,
-                          typeFilm: typeHomeFilm.typeFilm);
+                          typeFilm: typeHomeFilm.typeFilm,
+                      title: typeHomeFilm.title,uri: typeHomeFilm.uri);
 
 
                       if (_typeHomeFilm.typeFilm == TypeFilm.Movie)
@@ -107,7 +109,6 @@ class _SeeAllPageState extends State<SeeAllPage> {
                         _typeHomeFilm.films = FilmData.getShows(
                             _typeHomeFilm.respone, typeHomeFilm.typeMovie);
 
-                      _typeHomeFilm.title='search';
                       return GridViewPage(_typeHomeFilm);
                     } else {
                       return LoadingWidget();
