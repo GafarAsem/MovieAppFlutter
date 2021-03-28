@@ -28,12 +28,41 @@ class _SeeAllPageState extends State<SeeAllPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(typeHomeFilm.uri);
-    var respone = http.get(Uri.https(
-      typeHomeFilm.uri.authority,
-      typeHomeFilm.uri.path,
-      typeHomeFilm.uri.queryParameters
-    ));
+    var respone;
+    if (typeHomeFilm.uri != null) {
+      respone = http.get(Uri.https(
+          typeHomeFilm.uri.authority,
+          typeHomeFilm.uri.path,
+          typeHomeFilm.uri.queryParameters
+      )
+      );
+
+      return scaffold(respone);
+    } else {
+      return FutureBuilder(
+        future: typeHomeFilm.respone,
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if(snapshot.hasData){
+            typeHomeFilm.uri=snapshot.data[1];
+
+            respone = http.get(Uri.https(
+                typeHomeFilm.uri.authority,
+                typeHomeFilm.uri.path,
+                typeHomeFilm.uri.queryParameters
+            )
+            );
+            return scaffold(respone);
+          }
+          else{
+            return LoadingWidget();
+          }
+        },
+
+      );
+    }
+  }
+
+  Widget scaffold(respone) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -63,19 +92,23 @@ class _SeeAllPageState extends State<SeeAllPage> {
                 child: FutureBuilder(
                   future: respone,
                   builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                      (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
-                      var data=jsonDecode(snapshot.data.body);
-                      var _typeHomeFilm = TypeHomeFilm(respone: data,typeMovie: typeHomeFilm.typeMovie,typeFilm: typeHomeFilm.typeFilm);
-
-                      if(_typeHomeFilm.typeFilm==TypeFilm.Movie)
-                      _typeHomeFilm.films = FilmData.getMovies(
-                          _typeHomeFilm.respone, typeHomeFilm.typeMovie);
-                      else _typeHomeFilm.films=FilmData.getShows(_typeHomeFilm.respone, typeHomeFilm.typeMovie);
+                      var data = jsonDecode(snapshot.data.body);
+                      var _typeHomeFilm = TypeHomeFilm(respone: data,
+                          typeMovie: typeHomeFilm.typeMovie,
+                          typeFilm: typeHomeFilm.typeFilm);
 
 
+                      if (_typeHomeFilm.typeFilm == TypeFilm.Movie)
+                        _typeHomeFilm.films = FilmData.getMovies(
+                            _typeHomeFilm.respone, typeHomeFilm.typeMovie);
+                      else
+                        _typeHomeFilm.films = FilmData.getShows(
+                            _typeHomeFilm.respone, typeHomeFilm.typeMovie);
 
-                      return GridViewPage(typeHomeFilm);
+                      _typeHomeFilm.title='search';
+                      return GridViewPage(_typeHomeFilm);
                     } else {
                       return LoadingWidget();
                     }
@@ -108,12 +141,14 @@ class _GridViewPageState extends State<GridViewPage> {
     return GridView.builder(
       physics: BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       shrinkWrap: true,
+      itemCount:typeHomeFilm.title=='search'?typeHomeFilm.films.length:null ,
       gridDelegate:
       SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,
           mainAxisExtent: 250 * 1.5),
       itemBuilder: (context, index) {
+        if(typeHomeFilm.title!='search')
         if (index >= typeHomeFilm.films.length - 1) {
-          Map ss=jsonDecode(jsonEncode(typeHomeFilm.uri.queryParameters));
+          Map ss = jsonDecode(jsonEncode(typeHomeFilm.uri.queryParameters));
           ss.update('page', (value) => (_page).round().toString());
           _page++;
           var respone = http.get(Uri.https(
@@ -125,18 +160,17 @@ class _GridViewPageState extends State<GridViewPage> {
             future: respone,
             builder: (BuildContext context,
                 AsyncSnapshot snapshot) {
-
               if (snapshot.hasData) {
-                var data=jsonDecode(snapshot.data.body);
+                var data = jsonDecode(snapshot.data.body);
 
 
-                if(typeHomeFilm.typeFilm==TypeFilm.Movie)
+                if (typeHomeFilm.typeFilm == TypeFilm.Movie)
                   typeHomeFilm.films.addAll(
                       FilmData.getMovies(data, typeHomeFilm.typeMovie));
-                else  typeHomeFilm.films.addAll(
-                    FilmData.getShows(data, typeHomeFilm.typeMovie));
+                else
+                  typeHomeFilm.films.addAll(
+                      FilmData.getShows(data, typeHomeFilm.typeMovie));
 
-                print(typeHomeFilm.films.length);
                 return GridCardMovie(typeHomeFilm.films[index]);
               } else {
                 return LoadingWidget();
@@ -220,7 +254,7 @@ class GridCardMovie extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           color: ColorMovie.blue_dark.withOpacity(0.3)),
                       child: Text(
-                        film.getDate.year.toString(),
+                        film.getDate!=null?film.getDate.year.toString():'N/A',
                         textAlign: TextAlign.center,
                         style: MyTextStyle.getMyStyle(
                             color: Colors.white,

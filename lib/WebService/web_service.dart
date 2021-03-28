@@ -182,6 +182,22 @@ class WebService{
     return [shows.body,uri];
   }
 
+  static Future<List> searchMovie(String query) async {
+    String path='3/search/movie';
+    var uri=Uri.https(
+        url,
+        path,
+        {
+          'api_key':_apiToken,
+          'language':'en-US',
+          'page':'1',
+          'query':query
+        }
+    );
+    var movies =
+        await http.get(uri);
+    return [movies.body,uri];
+  }
 
 // static Future<Map> getGenersMovies() async {
 //   var movies = await _tmdb.v3.geners.getMovieList();

@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 import 'package:movie_app_flutter/Modules/film_module.dart';
+import 'package:movie_app_flutter/Modules/type_home_film.dart';
 import 'package:movie_app_flutter/Scenes/NavigationPage/anime_scene.dart';
 import 'package:movie_app_flutter/Scenes/NavigationPage/favorite_scene.dart';
 import 'package:movie_app_flutter/Scenes/NavigationPage/movie_scene.dart';
 import 'package:movie_app_flutter/Scenes/NavigationPage/shows_scene.dart';
+import 'package:movie_app_flutter/Scenes/seeall_page.dart';
 import 'package:movie_app_flutter/UI/Border.dart';
 import 'package:movie_app_flutter/UI/color_movie.dart';
 import 'package:movie_app_flutter/UI/text_style.dart';
+import 'package:movie_app_flutter/WebService/film_data.dart';
+import 'package:movie_app_flutter/WebService/web_service.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -33,10 +37,19 @@ class _HomePageState extends State<HomePage> {
               color: ColorMovie.blue_dark, font: 30, fontWeight: FontWeight.w400),
         ),
         actions: [
-          Icon(
-            CupertinoIcons.search,
-            color: ColorMovie.blue_dark,
-            size: 35,
+          IconButton(
+            icon: Icon(
+              CupertinoIcons.search,
+              color: ColorMovie.blue_dark,
+              size: 35,
+            ), onPressed: () { Navigator.push(context, MaterialPageRoute(
+             builder: (context)=>SeeAllPage(TypeHomeFilm(
+                 title: 'Search',
+               typeFilm: TypeFilm.Movie,
+               typeMovie: TypeMovie.trending,
+               respone: WebService.searchMovie('inception')
+              ))
+          )) ;},
           ),
         ],
         backgroundColor: Colors.white,

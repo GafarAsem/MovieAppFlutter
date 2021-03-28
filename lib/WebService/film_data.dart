@@ -12,6 +12,7 @@ class FilmData {
   static List<Movie> getMovies(dynamic responeResult, TypeMovie typeMovie) {
     List<Movie> movies = [];
 
+
     switch (typeMovie) {
       case TypeMovie.trending:
         for (int i = 0; i < responeResult['results'].length; i++) {
@@ -24,12 +25,12 @@ class FilmData {
               country: null,
               hourWatch: null,
               director: null,
-              date: DateTime.tryParse(movieDetaile['release_date']),
-              postURL: movieDetaile['poster_path'],
+              date: DateTime.tryParse(movieDetaile['release_date']==null?'2020-12-12':movieDetaile['release_date']),
+              postURL: movieDetaile['poster_path']!=null?movieDetaile['poster_path']:'/wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
               rating: movieDetaile['vote_average'].runtimeType == int
                   ? movieDetaile['vote_average'].toDouble()
                   : movieDetaile['vote_average'],
-              sortFilm: movieDetaile['genre_ids']));
+              sortFilm: movieDetaile['genre_ids']==null? movieDetaile['genre_ids']:null));
         }
         break;
       case TypeMovie.discovering:
@@ -43,8 +44,8 @@ class FilmData {
               country: null,
               hourWatch: null,
               director: null,
-              date: DateTime.tryParse(movieDetaile['release_date']),
-              postURL: movieDetaile['poster_path'],
+              date: DateTime.tryParse(movieDetaile['release_date']==null?'2020-12-12':movieDetaile['release_date']),
+              postURL: movieDetaile['poster_path']!=null?movieDetaile['poster_path']:'wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
               rating: movieDetaile['vote_average'].runtimeType == int
                   ? movieDetaile['vote_average'].toDouble()
                   : movieDetaile['vote_average'],
