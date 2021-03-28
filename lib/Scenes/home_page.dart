@@ -23,7 +23,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selected = 0;
   PageController _controllPages = PageController();
-
+  TextEditingController _controller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -31,27 +31,27 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 20,
-        title: Text(
-          'Movies',
-          style: MyTextStyle.getMyStyle(
-              color: ColorMovie.blue_dark, font: 30, fontWeight: FontWeight.w400),
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.search,
-              color: ColorMovie.blue_dark,
-              size: 35,
-            ), onPressed: () { Navigator.push(context, MaterialPageRoute(
-             builder: (context)=>SeeAllPage(TypeHomeFilm(
-                 title: 'Search',
-               typeFilm: TypeFilm.Movie,
-               typeMovie: TypeMovie.trending,
-               respone: WebService.searchMovie('inception')
+        title:   TextFormField(
+          controller: _controller,
+          onFieldSubmitted: (_) { Navigator.push(context, MaterialPageRoute(
+              builder: (context)=>SeeAllPage(TypeHomeFilm(
+                  title: 'Search',
+                  typeFilm: TypeFilm.Movie,
+                  typeMovie: TypeMovie.trending,
+                  respone: WebService.searchMovie(_controller.text)
               ))
           )) ;},
+          decoration:InputDecoration(
+              suffixIcon: Icon(
+                CupertinoIcons.search,
+                color: ColorMovie.blue_dark,
+                size: 35,
+              ),
+              hintText: 'Search'
           ),
-        ],
+        ),
+
+
         backgroundColor: Colors.white,
         elevation: 0,
       ),
